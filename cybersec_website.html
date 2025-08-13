@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJ Langlois - Free Cybersecurity Resources Hub</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #e4e6ea;
+            background: #0a0e1a;
+            overflow-x: hidden;
+        }
+
+        /* Animated background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at 20% 50%, rgba(0, 255, 136, 0.2) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(0, 212, 255, 0.2) 0%, transparent 50%),
+                radial-gradient(ellipse at 40% 80%, rgba(179, 71, 255, 0.2) 0%, transparent 50%);
+            z-index: -2;
+            animation: bgShift 20s ease-in-out infinite;
+        }
+
+        @keyframes bgShift {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(5deg); }
+        }
+
+        /* Mesh grid background */
+        .mesh-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 136, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 14, 26, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(120, 119, 198, 0.2);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(10, 14, 26, 0.95);
+            border-bottom-color: rgba(120, 119, 198, 0.4);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #7877c6;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            background: linear-gradient(135deg, #00ff88, #00d4ff, #b347ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            padding: 0.2rem 0;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #b4b7c1;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #00ff88;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #00ff88, #00d4ff, #b347ff);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        /* Mobile menu */
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #e4e6ea;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 140px 2rem 100px;
+            background: linear-gradient(135deg, rgba(10, 14, 26, 0.9) 0%, rgba(20, 24, 36, 0.9) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 30% 40%, rgba(120, 119, 198, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(255, 119, 198, 0.1) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            letter-spacing: -2px;
+            background: linear-gradient(135deg, #ffffff, #7877c6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.1;
+        }
+
+        .hero-text .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: #7877c6;
+            font-weight: 600;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            color: #b4b7c1;
+            line-height: 1.7;
+        }
+
+        .hero-visual {
+            position: relative;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .threat-hunter-graphic {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            background: 
+                conic-gradient(from 0deg, 
+                    rgba(120, 119, 198, 0.4) 0deg,
+                    rgba(255, 119, 198, 0.4) 90deg,
+                    rgba(120, 219, 255, 0.4) 180deg,
+                    rgba(120, 119, 198, 0.4) 270deg,
+                    rgba(120, 119, 198, 0.4) 360deg);
+            border-radius: 50%;
+            animation: rotate 20s linear infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .threat-hunter-graphic::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            background: rgba(10, 14, 26, 0.9);
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .threat-hunter-graphic i {
+            position: relative;
+            z-index: 2;
+            font-size: 6rem;
+            color: #7877c6;
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 16px 32px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #00ff88, #00d4ff);
+            color: #000;
+            box-shadow: 0 4px 15px rgba(0, 255, 136, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 255, 136, 0.6);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #00ff88;
+            border-color: #00ff88;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 255, 136, 0.1);
+            transform: translateY(-3px);
+        }
+
+        /* Page Container */
+        .page {
+            display: none;
+            min-height: calc(100vh - 200px);
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            margin-bottom: 4rem;
+            text-align: center;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffffff, #00ff88, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Cards and Grid Layouts */
+        .posts-grid,
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: linear-gradient(145deg, rgba(20, 24, 36, 0.8), rgba(30, 34, 46, 0.6));
+            border: 1px solid rgba(120, 119, 198, 0.2);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            position: relative;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(145deg, transparent, rgba(120, 119, 198, 0.05));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(120, 119, 198, 0.4);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .post-image,
+        .skill-icon {
+            height: 200px;
+            background: linear-gradient(135deg, #00ff88, #00d4ff, #b347ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .post-image::before,
+        .skill-icon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 70% 70%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+        }
+
+        .card-content {
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .post-meta,
+        .skill-meta {
+            color: #7877c6;
+            font-size: 0.9rem;
+            margin-bottom: 0.8rem;
+            font-weight: 500;
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: #ffffff;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .card-text {
+            color: #b4b7c1;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .read-more {
+            color: #7877c6;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .read-more:hover {
+            color: #ff77c6;
+            transform: translateX(5px);
+        }
+
+        /* About Section */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 5rem;
+            align-items: center;
+            margin-top: 3rem;
+        }
+
+        .profile-section {
+            text-align: center;
+            position: relative;
+        }
+
+        .profile-placeholder {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #7877c6, #ff77c6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 5rem;
+            margin: 0 auto 2rem;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(120, 119, 198, 0.3);
+        }
+
+        .profile-placeholder::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            background: conic-gradient(from 0deg, #7877c6, #ff77c6, #78dbff, #7877c6);
+            border-radius: 50%;
+            z-index: -1;
+            animation: rotate 10s linear infinite;
+        }
+
+        .about-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #b4b7c1;
+        }
+
+        .about-text h3 {
+            color: #7877c6;
+            margin: 2.5rem 0 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .highlight-box {
+            background: linear-gradient(145deg, rgba(120, 119, 198, 0.1), rgba(255, 119, 198, 0.05));
+            border-left: 4px solid #7877c6;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 12px 12px 0;
+        }
+
+        /* Resources Section */
+        .resources-intro {
+            text-align: center;
+            margin-bottom: 4rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .search-container {
+            margin-bottom: 4rem;
+            text-align: center;
+        }
+
+        .search-wrapper {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 1.5rem 2rem;
+            background: rgba(20, 24, 36, 0.8);
+            border: 2px solid rgba(120, 119, 198, 0.3);
+            border-radius: 50px;
+            color: #e4e6ea;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: #7877c6;
+            box-shadow: 0 0 20px rgba(120, 119, 198, 0.3);
+        }
+
+        .search-box::placeholder {
+            color: #6b7280;
+        }
+
+        .category-filters {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.8rem 1.5rem;
+            background: rgba(20, 24, 36, 0.6);
+            border: 2px solid rgba(120, 119, 198, 0.3);
+            color: #b4b7c1;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            backdrop-filter: blur(10px);
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: linear-gradient(135deg, #7877c6, #ff77c6);
+            border-color: transparent;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .resource-category {
+            background: linear-gradient(145deg, rgba(20, 24, 36, 0.8), rgba(30, 34, 46, 0.6));
+            border: 1px solid rgba(120, 119, 198, 0.2);
+            border-radius: 16px;
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .resource-category:hover {
+            transform: translateY(-5px);
+            border-color: rgba(120, 119, 198, 0.4);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .resource-category h3 {
+            color: #7877c6;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .resource-list {
+            list-style: none;
+        }
+
+        .resource-list li {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: rgba(10, 14, 26, 0.5);
+            border: 1px solid rgba(120, 119, 198, 0.1);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .resource-list li:hover {
+            background: rgba(120, 119, 198, 0.1);
+            border-color: rgba(120, 119, 198, 0.3);
+            transform: translateX(5px);
+        }
+
+        .resource-list a {
+            color: #e4e6ea;
+            text-decoration: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+        }
+
+        .resource-list a:hover {
+            color: #7877c6;
+        }
+
+        /* Contact Form */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            margin-top: 3rem;
+        }
+
+        .contact-info {
+            background: linear-gradient(145deg, rgba(20, 24, 36, 0.8), rgba(30, 34, 46, 0.6));
+            padding: 3rem;
+            border-radius: 16px;
+            border: 1px solid rgba(120, 119, 198, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-info h3 {
+            color: #7877c6;
+            margin-bottom: 2rem;
+            font-size: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            color: #b4b7c1;
+            font-size: 1.1rem;
+        }
+
+        .contact-item i {
+            color: #7877c6;
+            width: 24px;
+            font-size: 1.2rem;
+        }
+
+        .contact-form {
+            background: linear-gradient(145deg, rgba(20, 24, 36, 0.8), rgba(30, 34, 46, 0.6));
+            padding: 3rem;
+            border-radius: 16px;
+            border: 1px solid rgba(120, 119, 198, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #7877c6;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(10, 14, 26, 0.6);
+            border: 2px solid rgba(120, 119, 198, 0.3);
+            border-radius: 8px;
+            color: #e4e6ea;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #7877c6;
+            box-shadow: 0 0 15px rgba(120, 119, 198, 0.3);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #6b7280;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #7877c6, #ff77c6);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(120, 119, 198, 0.4);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(120, 119, 198, 0.6);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, rgba(10, 14, 26, 0.95), rgba(20, 24, 36, 0.95));
+            border-top: 1px solid rgba(120, 119, 198, 0.2);
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-top: 5rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-links a {
+            color: #b4b7c1;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            padding: 1rem;
+            border-radius: 50%;
+            background: rgba(0, 255, 136, 0.1);
+        }
+
+        .social-links a:hover {
+            color: #00ff88;
+            background: rgba(0, 255, 136, 0.2);
+            transform: translateY(-3px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 3rem;
+            }
+
+            .about-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(10, 14, 26, 0.95);
+                flex-direction: column;
+                padding: 2rem;
+                backdrop-filter: blur(20px);
+                border-top: 1px solid rgba(120, 119, 198, 0.2);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero {
+                padding: 120px 1rem 80px;
+            }
+
+            .section {
+                padding: 3rem 0;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .posts-grid,
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation"></div>
+    <div class="mesh-bg"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo" onclick="showPage('home')">AJ Langlois</a>
+            <button class="mobile-toggle" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#" onclick="showPage('home')" id="nav-home" class="active">Home</a></li>
+                <li><a href="#" onclick="showPage('resources')" id="nav-resources">Free Resources</a></li>
+                <li><a href="#" onclick="showPage('sans-work-study')" id="nav-sans-work-study">SANS Work Study</a></li>
+                <li><a href="#" onclick="showPage('contact')" id="nav-contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>AJ Langlois</h1>
+                <p class="subtitle">Free Cybersecurity Resources Hub</p>
+                <p>Your comprehensive collection of free cybersecurity resources, tools, and learning opportunities. From beginner tutorials to advanced certifications - everything you need to advance your cybersecurity career.</p>
+                <div class="cta-buttons">
+                    <a href="#" onclick="showPage('resources')" class="btn btn-primary">
+                        <i class="fas fa-graduation-cap"></i> Browse Resources
+                    </a>
+                    <a href="#" onclick="showPage('sans-work-study')" class="btn btn-secondary">
+                        <i class="fas fa-star"></i> SANS Work Study
+                    </a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="threat-hunter-graphic">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Home Page -->
+    <div id="home" class="page active">
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">Featured Resources</h2>
+                <div class="posts-grid">
+                    <article class="card">
+                        <div class="post-image">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="card-content">
+                            <div class="post-meta">Featured • Learning Platforms</div>
+                            <h3 class="card-title">Free Cybersecurity Training</h3>
+                            <p class="card-text">Access world-class cybersecurity training from platforms like Cybrary, Professor Messer, and SANS Cyber Aces - completely free.</p>
+                            <a href="#" onclick="showPage('resources')" class="read-more">Explore Training <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+
+                    <article class="card">
+                        <div class="post-image">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="card-content">
+                            <div class="post-meta">Featured • SANS Program</div>
+                            <h3 class="card-title">SANS Work Study Program</h3>
+                            <p class="card-text">Get access to premium SANS training courses worth thousands of dollars through their work study program. Limited spots available.</p>
+                            <a href="#" onclick="showPage('sans-work-study')" class="read-more">Learn More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+
+                    <article class="card">
+                        <div class="post-image">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <div class="card-content">
+                            <div class="post-meta">Featured • Practice Labs</div>
+                            <h3 class="card-title">Hands-On Practice</h3>
+                            <p class="card-text">Sharpen your skills with free practice environments including TryHackMe, HackTheBox, and vulnerable applications.</p>
+                            <a href="#" onclick="showPage('resources')" class="read-more">Start Practicing <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">Why Use These Resources?</h2>
+                <div class="skills-grid">
+                    <div class="card">
+                        <div class="skill-icon">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div class="card-content">
+                            <h4 class="card-title">100% Free</h4>
+                            <p class="card-text">All resources are completely free to use. No hidden costs, subscriptions, or premium barriers to learning cybersecurity.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="skill-icon">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        <div class="card-content">
+                            <h4 class="card-title">Industry Recognized</h4>
+                            <p class="card-text">Learn from industry-leading platforms and prepare for respected certifications like Security+, CISSP, and CEH.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="skill-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <div class="card-content">
+                            <h4 class="card-title">Career Focused</h4>
+                            <p class="card-text">Resources are curated to help you build practical skills and advance your cybersecurity career from beginner to expert.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- SANS Work Study Page -->
+    <div id="sans-work-study" class="page">
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">SANS Work Study Program</h2>
+                
+                <div class="about-grid">
+                    <div class="profile-section">
+                        <div class="profile-placeholder">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                    </div>
+                    <div class="about-text">
+                        <h3>What is SANS Work Study?</h3>
+                        <p>The SANS Work Study Program is an incredible opportunity to attend world-class cybersecurity training courses worth $6,000+ for FREE. In exchange for 20-25 hours of work during the event, you get access to premium SANS training, materials, and certification attempts.</p>
+                        
+                        <div class="highlight-box">
+                            <strong>🎯 Perfect For:</strong> Students, career changers, and professionals looking to advance their cybersecurity skills without the high cost of SANS training.
+                        </div>
+
+                        <h3>Program Benefits</h3>
+                        <p>Work study participants receive everything a paying student gets - course materials, virtual machines, practice exams, and access to the instructor and community - all while gaining valuable experience working SANS events.</p>
+                    </div>
+                </div>
+
+                <div class="skills-grid">
+                    <div class="card">
+                        <div class="card-content">
+                            <h4 class="card-title"><i class="fas fa-dollar-sign"></i> What You Get</h4>
+                            <ul style="list-style: none; color: #b4b7c1;">
+                                <li>• Free SANS training course ($6,000+ value)</li>
+                                <li>• All course materials and virtual machines</li>
+                                <li>• Practice exams and labs</li>
+                                <li>• Networking with cybersecurity professionals</li>
+                                <li>• 4-month access to OnDemand content</li>
+                                <li>• GIAC certification attempt included</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-content">
+                            <h4 class="card-title"><i class="fas fa-tasks"></i> Your Responsibilities</h4>
+                            <ul style="list-style: none; color: #b4b7c1;">
+                                <li>• 20-25 hours of work during the event</li>
+                                <li>• Assist with registration and logistics</li>
+                                <li>• Help distribute materials</li>
+                                <li>• Support technical setup</li>
+                                <li>• Provide customer service to attendees</li>
+                                <li>• Maintain professional demeanor</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-content">
+                            <h4 class="card-title"><i class="fas fa-clipboard-check"></i> Requirements</h4>
+                            <ul style="list-style: none; color: #b4b7c1;">
+                                <li>• Must be 18+ years old</li>
+                                <li>• Available for entire event duration</li>
+                                <li>• Professional attitude and appearance</li>
+                                <li>• Reliable and punctual</li>
+                                <li>• Some technical knowledge helpful</li>
+                                <li>• Commitment to learning</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="highlight-box" style="text-align: center; margin: 3rem 0;">
+                    <h3 style="color: #00ff88; margin-bottom: 1rem;">Ready to Apply?</h3>
+                    <p style="margin-bottom: 2rem;">SANS Work Study positions fill up quickly. Applications are typically reviewed on a first-come, first-served basis.</p>
+                    <a href="https://www.sans.org/work-study-program/" target="_blank" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none;">
+                        <i class="fas fa-external-link-alt"></i> Apply for SANS Work Study
+                    </a>
+                </div>
+
+                <div class="posts-grid">
+                    <div class="card">
+                        <div class="card-content">
+                            <h4 class="card-title"><i class="fas fa-lightbulb"></i> Application Tips</h4>
+                            <ul style="list-style: none; color: #b4b7c1; margin-top: 1rem;">
+                                <li>• Apply early - positions fill quickly</li>
+                                <li>• Choose courses aligned with your career goals</li>
+                                <li>• Be flexible with location and dates</li>
+                                <li>• Highlight any relevant experience</li>
+                                <li>• Show genuine interest in cybersecurity</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-content">
+                            <h4 class="card-title"><i class="fas fa-star"></i> Popular Courses</h4>
+                            <ul style="list-style: none; color: #b4b7c1; margin-top: 1rem;">
+                                <li>• SEC401: Security Essentials</li>
+                                <li>• SEC504: Hacker Tools & Techniques</li>
+                                <li>• SEC560: Network Penetration Testing</li>
+                                <li>• FOR500: Windows Forensic Analysis</li>
+                                <li>• SEC542: Web App Penetration Testing</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Resources Page -->
+    <div id="resources" class="page">
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">Free Cybersecurity Resources</h2>
+                <div class="resources-intro">
+                    <p>A comprehensive collection of free cybersecurity learning resources, tools, and platforms. These resources are essential for anyone looking to advance their threat hunting skills, cybersecurity knowledge, or start their journey in information security.</p>
+                </div>
+                
+                <div class="search-container">
+                    <div class="search-wrapper">
+                        <input type="text" class="search-box" placeholder="Search resources..." id="searchBox">
+                    </div>
+                    <div class="category-filters">
+                        <button class="filter-btn active" data-category="all">All</button>
+                        <button class="filter-btn" data-category="learning">Learning</button>
+                        <button class="filter-btn" data-category="practice">Practice</button>
+                        <button class="filter-btn" data-category="tools">Tools</button>
+                        <button class="filter-btn" data-category="documentation">Documentation</button>
+                        <button class="filter-btn" data-category="communities">Communities</button>
+                    </div>
+                </div>
+
+                <div class="posts-grid" id="resourcesGrid">
+                    <!-- Learning Platforms -->
+                    <div class="resource-category" data-category="learning">
+                        <h3><i class="fas fa-graduation-cap"></i> Learning Platforms</h3>
+                        <ul class="resource-list">
+                            <li><a href="https://www.cybrary.it/" target="_blank">Cybrary <i class="fas fa-external-link-alt"></i></a></li>
+                            <li><a href="https://www.professormesser.com/" target="_blank">Professor Messer <i class="fas fa-external-link-alt"></i></a></li>
+                            <li><a href="https://www.cyberaces.org/" target="_blank">SANS Cyber Aces <i class="fas fa-external-link-alt"></i></a></li>
+                            <li><a href="https://opensecuritytraining.info/" target="_blank">Open Security Training <i class="fas fa-external-link-alt"></i></a></li>
+                            <li><a href="https://www.coursera.org/" target="_blank">Coursera <i class="fas fa-external-link-alt"></i></a></li>
+                            <li><a href="https://www.edx.org/" target="_blank">edX <i class="fas fa-external-link-alt"></i></a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Practice Environments -->
+                    <div class="resource-category" data-category="practice">
+                        <h3><i class="fas fa-crosshairs"></i> Practice Labs</h3>
+                        <ul class="resource-list">
+                            <li><a href="https://tryhackme.com/" target="_blank">TryHackMe <i class="fas fa-external-link-alt"></i></a></li>
+                            <li><a href="https://www.hackthebox.com/" target="_blank">HackTheBox <i class="fas fa-external-link-alt"></i></a></li>
+                            <li><a href="https://overthewire.org/wargames/" target="_blank">OverTheWire <i class="fas fa-external-link-alt"></i></a></li>
+                            <li><a href="https://picoctf.org/" target="_blank">PicoCTF <i class="fas fa-external-link-alt"></i></a></li>
+                            <li><a href="https://www.vulnhub.com/" target="_blank">VulnHub <i class="fas fa-external-link-alt"></i></a></li>
+                            <li><a href="https://cyberdefenders.org/" target="_blank">CyberDefenders <i class="fas fa-external-link-alt"></i></a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Security Tools -->
+                    <div class="resource-category" data-category="tools">
+                        <h3><i class="fas fa-tools"></i> Security Tools</h3>
+                        <ul class="resource-list">
+                            <li><a href="https://www.wireshark.org/" target="_blank">Wireshark <i class="fas fa-external-link-alt"></i></a></li>
+                            <li><a href="https://nmap.org/" target="_blank">Nmap <i class="fas fa-external-link-alt"></i></a></li>
+                            <li><a href="https://www.metasploit.com/" target="_blank">Metasploit <i class="fas fa-external-link-alt"></i></a></li>
+                            <li><a href="https://portswigger.net/burp" target="_blank">Burp Suite <i class="fas fa-external-link-alt"></i></a></li>
+                            <li><a href="https://www.zaproxy.org/" target="_blank">OWASP ZAP <i class="fas fa-external-link-alt"></i></a></li>
+                            <li><a href="https://www.kali.org/" target="_blank">Kali Linux <i class="fas fa-external-link-alt"></i></a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Documentation -->
+                    <div class="resource-category" data-category="documentation">
+                        <h3><i class="fas fa-book"></i> Documentation</h3>
+                        <ul class="resource-list">
+                            <li><a href="https://www.nist.gov/cyberframework" target="_blank">NIST Framework <i class="fas fa-external-link-alt"></i></a></li>
+                            <li><a href="https://owasp.org/www-project-top-ten/" target="_blank">OWASP Top 10 <i class="fas fa-external-link-alt"></i></a></li>
+                            <li><a href="https://attack.mitre.org/" target="_blank">MITRE ATT&CK <i class="fas fa-external-link-alt"></i></a></li>
+                            <li><a href="https://cheatsheetseries.owasp.org/" target="_blank">OWASP Cheat Sheets <i class="fas fa-external-link-alt"></i></a></li>
+                            <li><a href="https://github.com/swisskyrepo/PayloadsAllTheThings" target="_blank">PayloadsAllTheThings <i class="fas fa-external-link-alt"></i></a></li>
+                            <li><a href="https://book.hacktricks.xyz/" target="_blank">HackTricks <i class="fas fa-external-link-alt"></i></a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Communities -->
+                    <div class="resource-category" data-category="communities">
+                        <h3><i class="fas fa-users"></i> Communities</h3>
+                        <ul class="resource-list">
+                            <li><a href="https://reddit.com/r/cybersecurity" target="_blank">r/cybersecurity <i class="fas fa-external-link-alt"></i></a></li>
+                            <li><a href="https://security.stackexchange.com/" target="_blank">InfoSec Stack Exchange <i class="fas fa-external-link-alt"></i></a></li>
+                            <li><a href="https://owasp.org/chapters/" target="_blank">OWASP Chapters <i class="fas fa-external-link-alt"></i></a></li>
+                            <li><a href="https://defcon.org/html/links/dc-groups.html" target="_blank">DefCon Groups <i class="fas fa-external-link-alt"></i></a></li>
+                            <li><a href="https://www.isc2.org/" target="_blank">(ISC)² Community <i class="fas fa-external-link-alt"></i></a></li>
+                            <li><a href="https://www.isaca.org/" target="_blank">ISACA <i class="fas fa-external-link-alt"></i></a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Certifications -->
+                    <div class="resource-category" data-category="learning">
+                        <h3><i class="fas fa-certificate"></i> Certifications</h3>
+                        <ul class="resource-list">
+                            <li><a href="https://www.professormesser.com/security-plus/" target="_blank">Security+ Prep <i class="fas fa-external-link-alt"></i></a></li>
+                            <li><a href="https://www.isc2.org/Certifications/CISSP" target="_blank">CISSP Resources <i class="fas fa-external-link-alt"></i></a></li>
+                            <li><a href="https://www.eccouncil.org/programs/certified-ethical-hacker-ceh/" target="_blank">CEH Materials <i class="fas fa-external-link-alt"></i></a></li>
+                            <li><a href="https://www.offensive-security.com/pwk-oscp/" target="_blank">OSCP Prep <i class="fas fa-external-link-alt"></i></a></li>
+                            <li><a href="https://www.sans.org/cyber-security-certifications/" target="_blank">SANS GIAC <i class="fas fa-external-link-alt"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Contact Page -->
+    <div id="contact" class="page">
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">Contact & Feedback</h2>
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <h3>Get In Touch</h3>
+                        <p>Have suggestions for new resources? Found a broken link? Want to contribute to the collection? We'd love to hear from you!</p>
+                        
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>resources@cyberseclearning.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fab fa-github"></i>
+                            <span>GitHub: /cybersec-resources</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-star"></i>
+                            <span>Suggest new resources</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-bug"></i>
+                            <span>Report issues</span>
+                        </div>
+                        
+                        <h3 style="margin-top: 2rem;">Contributing</h3>
+                        <p>This resource collection is community-driven. If you know of great free cybersecurity resources that should be included, please let us know!</p>
+                    </div>
+                    
+                    <form class="contact-form">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" placeholder="your@email.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject" placeholder="Resource suggestion, bug report, etc." required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="5" placeholder="Tell us about new resources, report issues, or provide feedback..." required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="social-links">
+            <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
+            <a href="#" title="Email"><i class="fas fa-envelope"></i></a>
+        </div>
+        <p>&copy; 2025 CyberSec Resources. Empowering cybersecurity education through free learning resources.</p>
+    </footer>
+
+    <script>
+        // Page navigation
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.querySelectorAll('.nav-links a').forEach(link => link.classList.remove('active'));
+            
+            document.getElementById(pageId).classList.add('active');
+            document.getElementById('nav-' + pageId).classList.add('active');
+            
+            document.getElementById('navLinks').classList.remove('active');
+            window.scrollTo(0, 0);
+        }
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            document.getElementById('navLinks').classList.toggle('active');
+        }
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Resource search and filter
+        function setupResourceSearch() {
+            const searchBox = document.getElementById('searchBox');
+            const resourcesGrid = document.getElementById('resourcesGrid');
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            
+            if (searchBox) {
+                searchBox.addEventListener('input', filterResources);
+            }
+            
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    filterResources();
+                });
+            });
+            
+            function filterResources() {
+                if (!searchBox || !resourcesGrid) return;
+                
+                const searchTerm = searchBox.value.toLowerCase();
+                const activeCategory = document.querySelector('.filter-btn.active')?.dataset.category || 'all';
+                const categories = document.querySelectorAll('.resource-category');
+                
+                categories.forEach(category => {
+                    const categoryName = category.dataset.category;
+                    const categoryText = category.textContent.toLowerCase();
+                    
+                    let show = true;
+                    
+                    if (activeCategory !== 'all' && categoryName !== activeCategory) {
+                        show = false;
+                    }
+                    
+                    if (searchTerm && !categoryText.includes(searchTerm)) {
+                        show = false;
+                    }
+                    
+                    category.style.display = show ? 'block' : 'none';
+                });
+            }
+        }
+
+        // Form handling
+        function setupForm() {
+            const form = document.querySelector('.contact-form');
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('Thank you for reaching out! Your message has been received. (This is a demo form)');
+                    form.reset();
+                });
+            }
+        }
+
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', function() {
+            setupResourceSearch();
+            setupForm();
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(e) {
+            const nav = document.querySelector('nav');
+            const mobileMenu = document.getElementById('navLinks');
+            
+            if (!nav.contains(e.target)) {
+                mobileMenu.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
